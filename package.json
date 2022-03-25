@@ -5,6 +5,12 @@
     "cats-js": "^1.0.2",
     "dotenv": "^16.0.0",
     "moment": "^2.29.1",
-    "node-osu": "^2.2.1"
+    "node-osu": "^2.2.1",
+    "typescript": "^4.6.3"
+  },
+  "scripts": {
+    "start": "node build/index.js",
+    "build": "tsc index.ts",
+    "postinstall": "npm run build"
   }
 }
