@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "@adiwajshing/baileys": "^4.0.1",
+    "aws-sdk": "^2.1100.0",
+    "cats-js": "^1.0.2",
+    "dotenv": "^16.0.0",
+    "moment": "^2.29.1",
+    "node-osu": "^2.2.1"
+  }
+}

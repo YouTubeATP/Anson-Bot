@@ -1,0 +1,8 @@
+/.vscode
+/.env
+/node_modules
+/.prettierrc
+/auth_info_multi.json
+/baileys_store_multi.json
+*.js
+/assets/osuNames.json
