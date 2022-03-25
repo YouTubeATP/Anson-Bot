@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "node build/index.js",
-    "build": "tsc index.ts",
+    "build": "tsc",
     "postinstall": "npm run build"
   }
 }
