@@ -34,6 +34,6 @@ export async function execute(sock, msg, messageText, args) {
 
   let id = msg.key.remoteJid.endsWith("@g.us") ? msg.key.participant.slice(0, msg.key.participant.length - 16) : msg.key.remoteJid.slice(0, msg.key.remoteJid.length - 16);
   setTimeout(() => {
-    await sock.sendMessage(msg.key.remoteJid, { text: `@${id} *${reminderText}*` });
+    sock.sendMessage(msg.key.remoteJid, { text: `@${id} *${reminderText}*` });
   }, ms)
 }
