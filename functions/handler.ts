@@ -1,4 +1,6 @@
 import * as commands from "../export";
+import { nonCommandCheck } from "./nonCommandCheck";
+const fs = require("fs");
 
 export async function handler(sock, message) {
   // const sendMessageWTyping = async (msg: AnyMessageContent, jid: string) => {
@@ -12,6 +14,20 @@ export async function handler(sock, message) {
 
   //   await sock.sendMessage(jid, msg);
   // };
+
+  
+  let bans: Array<String> = JSON.parse(fs.readFileSync("./assets/bans.json", (err) => {
+    if (err) {
+      throw err;
+    }
+  }));
+
+  let sender = message.key.participant ? message.key.participant : message.key.remoteJid;
+
+  if (bans.includes(sender)) {
+    console.info("Blocked user " + sender + "'s attempt using the bot.")
+    return;
+  }
 
   var config = {
     commandPrefix: "a!"
@@ -55,10 +71,16 @@ export async function handler(sock, message) {
   const command = commands[commandName];
 
   if (command && (messageText.startsWith("a!") || messageText.startsWith("A!"))) {
+    // Commands
     await command.execute(sock, message, messageText, args).catch(error => {
       console.error(error);
     });
-  };
+  } else {
+    // Non-commands, such as a certain phrase
+    await nonCommandCheck(sock, message, messageText, args).catch(error => {
+      console.error(error);
+    });
+  }
 
   // const sentMsg = await sock.sendMessage(message.key.remoteJid, {
   //   text: message.message.conversation

@@ -8,13 +8,13 @@ import { handler } from './functions/handler'
 // the store maintains the data of the WA connection in memory
 // can be written out to a file & read from it
 const store = makeInMemoryStore({ logger: P().child({ level: 'debug', stream: 'store' }) })
-store.readFromFile('./baileys_store_multi.json')
+store.readFromFile('./assets/baileys_store_multi.json')
 // save every 10s
 setInterval(() => {
-    store.writeToFile('./baileys_store_multi.json')
+    store.writeToFile('./assets/baileys_store_multi.json')
 }, 10_000)
 
-const { state, saveState } = useSingleFileAuthState('./auth_info_multi.json')
+const { state, saveState } = useSingleFileAuthState('./assets/auth_info_multi.json')
 
 const fs = require("fs");
 const AWS = require("aws-sdk");
@@ -78,11 +78,17 @@ const downloadFile = (fileName) => {
 if (!(process.argv[2] && process.argv[2] === "--no-download")) {
     downloadFile("osuNames.json");
     downloadFile("baileys_store_multi.json");
+    downloadFile("credits.json");
+    downloadFile("bans.json");
+    downloadFile("auth_info_multi.json");
 }
 
 setInterval(() => {
     uploadFile("osuNames.json");
     uploadFile("baileys_store_multi.json");
+    uploadFile("credits.json");
+    uploadFile("bans.json");
+    uploadFile("auth_info_multi.json");
 }, 180000); // 3 minutes
 
 // start a connection

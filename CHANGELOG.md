@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.4 (2022-03-27)
+**Added:**
+- Non-command handler
+- Bot-wide user banning
+
 ## 1.0.3 (2022-03-27)
 **Added:**
 - `a!osuprofile` command

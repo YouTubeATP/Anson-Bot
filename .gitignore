@@ -6,3 +6,7 @@
 /baileys_store_multi.json
 *.js
 /assets/osuNames.json
+/assets/baileys_store_multi.json
+/assets/auth_info_multi.json
+/assets/bans.json
+/assets/credits.json

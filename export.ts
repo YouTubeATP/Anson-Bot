@@ -12,3 +12,4 @@ export * as osurecent from "./commands/osu/osuRecent";
 export * as ping from "./commands/ping";
 export * as help from "./commands/help";
 export * as osuprofile from "./commands/osu/osuProfile";
+export * as ban from "./commands/admin/ban";
