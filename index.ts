@@ -75,9 +75,14 @@ const downloadFile = (fileName) => {
     );
 };
 
-downloadFile("osuNames.json");
+if (!(process.argv[2] && process.argv[2] === "--no-download")) {
+    downloadFile("osuNames.json");
+    downloadFile("baileys_store_multi.json");
+}
+
 setInterval(() => {
     uploadFile("osuNames.json");
+    uploadFile("baileys_store_multi.json");
 }, 180000); // 3 minutes
 
 // start a connection

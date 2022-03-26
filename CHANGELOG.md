@@ -1,4 +1,11 @@
 # Changelog
+
+## 1.0.2 (2022-03-26)
+**Added:**
+- PP calculation for `a!osurecent`
+- File placement adjustment
+- `--no-download` command line argument
+- Updates to Procfile
 ## 1.0.1 (2022-03-26)
 **Fixed:**
 - osu! account not linking properly
@@ -9,5 +16,5 @@
 - `a!help` command
 - `a!ping` command
 
-**Removed**
+**Removed:**
 - `enum.ts`

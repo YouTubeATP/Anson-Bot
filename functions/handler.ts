@@ -1,4 +1,4 @@
-import * as commands from "../commands/export";
+import * as commands from "../export";
 
 export async function handler(sock, message) {
   // const sendMessageWTyping = async (msg: AnyMessageContent, jid: string) => {

@@ -1,3 +1,5 @@
+import { P } from "../../node_modules/pino/pino";
+
 require("dotenv").config();
 const node_osu = require('node-osu');
 const osu = new node_osu.Api(process.env.OSU_API_KEY, {
@@ -5,8 +7,9 @@ const osu = new node_osu.Api(process.env.OSU_API_KEY, {
   completeScores: true,
   parseNumeric: true,
 });
-
 const fs = require("fs");
+const ojsama = require("ojsama");
+const axios = require('axios');
 
 // enum Mods
 // {
@@ -46,6 +49,44 @@ const fs = require("fs");
 //     FreeModAllowed = NoFail | Easy | Hidden | HardRock | SuddenDeath | Flashlight | FadeIn | Relax | Relax2 | SpunOut | KeyMod,
 //     ScoreIncreaseMods = Hidden | HardRock | DoubleTime | Flashlight | FadeIn
 // }
+
+function calcPP(beatmap, mod, acc, combos, miss) {
+  let parser = new ojsama.parser();
+  let map;
+  let mods;
+  let acc_percent;
+  let combo;
+  let nmiss;
+  let stars;
+
+  axios.get(`http://osu.ppy.sh/osu/${beatmap}`)
+  .then(function (response) {
+    // handle success
+    parser.feed(response.data);
+    map = parser.map;
+    console.log(map.toString());
+
+    mods = ojsama.modbits.from_string(mod || "");
+    acc_percent = parseFloat(acc);
+    combo = parseInt(combos);
+    nmiss = parseInt(miss);
+
+    stars = new ojsama.diff().calc({map: map, mods: mods});
+    console.log(stars.toString());
+
+    return ojsama.ppv2({
+      stars: stars,
+      combo: combo,
+      nmiss: nmiss,
+      acc_percent: acc_percent,
+    });
+  })
+  .catch(function (error) {
+    console.log(error);
+  })
+  .then(function () {
+  });
+}
 
 // According to OSU API's enabled_mods bitmask, converts a given number sum to a list of enabled mods.
 function sumToModList(sum) {
@@ -246,19 +287,81 @@ export async function execute(sock, msg, messageText, args) {
       default:
         rank = rs.rank;
     }
-    m += `\n▸ _${rank}_ ▸ _${(rs.accuracy * 100).toFixed(2)}%_`;
-    m += `\n▸ _${numberWithCommas(rs.score)}_ ▸ _x${rs.maxCombo}/${rs.beatmap.maxCombo}_ ▸ _[${rs.counts["300"]}/${rs.counts["100"]}/${rs.counts["50"]}/${rs.counts.miss}]_`;
-    console.log(m);
-    
-    const buttons = [ {index: 1, urlButton: {displayText: 'Go to beatmap page', url: `https://osu.ppy.sh/beatmapsets/${rs.beatmap.beatmapSetId}#${type}/${rs.beatmap.id}`}} ]
 
-    let buttonMessage = {
-      caption: m,
-      footer: "Anson-Bot",
-      templateButtons: buttons,
-      image: { url: "https://assets.ppy.sh/beatmaps/" + rs.beatmap.beatmapSetId.toString() + "/covers/cover.jpg" }
-    };
+    if (type === "osu") {
+      let parser = new ojsama.parser();
+      let map;
+      let mod;
+      let acc_percent;
+      let combo;
+      let nmiss;
+      let stars;
+      let pp;
+      let fcpp;
 
-    sock.sendMessage(msg.key.remoteJid, buttonMessage);
+      axios.get(`http://osu.ppy.sh/osu/${rs.beatmap.id}`)
+      .then(function (response) {
+        // handle success
+        parser.feed(response.data);
+        map = parser.map;
+        console.log(map.toString());
+
+        mod = ojsama.modbits.from_string(modsString || "");
+        acc_percent = parseFloat(`${(rs.accuracy * 100).toFixed(2)}%`);
+        combo = parseInt(`${rs.maxCombo}x`);
+        nmiss = parseInt(`${rs.counts.miss}m`);
+
+        stars = new ojsama.diff().calc({map: map, mods: mod});
+        console.log(stars.toString());
+
+        pp = ojsama.ppv2({
+          stars: stars,
+          combo: combo,
+          nmiss: nmiss,
+          acc_percent: acc_percent,
+        });
+
+        fcpp = ojsama.ppv2({
+          map: map
+        });
+
+        console.log(pp);
+        console.log(fcpp);        
+        m += `\n▸ _${rank}_ ▸ _${pp.total.toFixed(2)}/${fcpp.total.toFixed(2)}PP_ ▸ _${(rs.accuracy * 100).toFixed(2)}%_`;
+        m += `\n▸ _${numberWithCommas(rs.score)}_ ▸ _x${rs.maxCombo}/${rs.beatmap.maxCombo}_ ▸ _[${rs.counts["300"]}/${rs.counts["100"]}/${rs.counts["50"]}/${rs.counts.miss}]_`;
+        console.log(m);
+        
+        const buttons = [ {index: 1, urlButton: {displayText: 'Go to beatmap page', url: `https://osu.ppy.sh/beatmapsets/${rs.beatmap.beatmapSetId}#${type}/${rs.beatmap.id}`}} ]
+
+        let buttonMessage = {
+          caption: m,
+          footer: "Anson-Bot",
+          templateButtons: buttons,
+          image: { url: "https://assets.ppy.sh/beatmaps/" + rs.beatmap.beatmapSetId.toString() + "/covers/cover.jpg" }
+        };
+
+        sock.sendMessage(msg.key.remoteJid, buttonMessage);
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+      .then(function () {
+      });
+    } else {
+      m += `\n▸ _${rank}_ ▸ _${(rs.accuracy * 100).toFixed(2)}%_`;
+      m += `\n▸ _${numberWithCommas(rs.score)}_ ▸ _x${rs.maxCombo}/${rs.beatmap.maxCombo}_ ▸ _[${rs.counts["300"]}/${rs.counts["100"]}/${rs.counts["50"]}/${rs.counts.miss}]_`;
+      console.log(m);
+      
+      const buttons = [ {index: 1, urlButton: {displayText: 'Go to beatmap page', url: `https://osu.ppy.sh/beatmapsets/${rs.beatmap.beatmapSetId}#${type}/${rs.beatmap.id}`}} ]
+
+      let buttonMessage = {
+        caption: m,
+        footer: "Anson-Bot",
+        templateButtons: buttons,
+        image: { url: "https://assets.ppy.sh/beatmaps/" + rs.beatmap.beatmapSetId.toString() + "/covers/cover.jpg" }
+      };
+
+      sock.sendMessage(msg.key.remoteJid, buttonMessage);
+    }
   });
 } 
