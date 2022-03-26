@@ -1,5 +1,3 @@
-import { P } from "../../node_modules/pino/pino";
-
 require("dotenv").config();
 const node_osu = require('node-osu');
 const osu = new node_osu.Api(process.env.OSU_API_KEY, {

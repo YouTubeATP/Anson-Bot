@@ -15,7 +15,7 @@ export async function execute(sock, msg, messageText, args) {
         await sock.sendMessage(msg.key.remoteJid, { text: "*MR commands*\n\n```a!stationlist``` - Sends you a list of MR Stations and their codes.\n\n```a!stationinfo <station code> [eng|chi]``` - Sends you data of the related station.\n\n[] Optional <> Required" });
         break;
       case "osu":
-        await sock.sendMessage(msg.key.remoteJid, { text: "*osu! commands*\n\n```a!osulink``` - Associates your WhatsApp account with an osu! user.\n\n```a!osurecent <username> [standard|taiko|catch|mania]``` - Sends you the recent play of a given user/ your linked user.\n\n[] Optional <> Required" });
+        await sock.sendMessage(msg.key.remoteJid, { text: "*osu! commands*\n\n```a!osulink <username>``` - Associates your WhatsApp account with an osu! user.\n\n```a!osurecent <username> [standard|taiko|catch|mania]``` - Sends you the recent play of a given user/ your linked user.\n\n[] Optional <> Required" });
         break;
       case "misc":
         await sock.sendMessage(msg.key.remoteJid, { text: "*Miscellaneous commands*\n\n```a!help <category>``` - Sends you a list of commands.\n\n```a!ping``` - Sends you a ping.\n\n[] Optional <> Required" });

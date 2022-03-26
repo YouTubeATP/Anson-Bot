@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.3 (2022-03-27)
+**Added:**
+- `a!osuprofile` command
 ## 1.0.2 (2022-03-26)
 **Added:**
 - PP calculation for `a!osurecent`
