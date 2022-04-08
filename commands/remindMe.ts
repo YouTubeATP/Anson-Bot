@@ -4,10 +4,10 @@ export async function execute(sock, msg, messageText, args) {
   let inTimeRegex = /(^\-d:|\-h:|\-m:|\-s:).*$/gm;
   let UTCRegex = /\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[1-2]\d|3[0-1])T(?:[0-1]\d|2[0-3]):[0-5]\d:[0-5]\dZ/;
   if (inTimeRegex.test(args[0])) {
-    let day;
-    let hour;
-    let minute;
-    let second;
+    let day: number;
+    let hour: number;
+    let minute: number;
+    let second: number;
     for (let i = 0; i < args.length; i++) {
       switch (args[i].slice(0, 3)) {
         case "-d:":
@@ -25,14 +25,14 @@ export async function execute(sock, msg, messageText, args) {
     let time = moment(args[0]);
     var ms = Number(moment().diff(time, "seconds")) * 1000;
   }
-  let reminderText;
+  let reminderText: string;
   if (!inTimeRegex.test(args[args.length - 1])) {
     reminderText = args[args.length - 1];
   } else {
     reminderText = "Your reminder is here!";
   }
 
-  let id = msg.key.remoteJid.endsWith("@g.us") ? msg.key.participant.slice(0, msg.key.participant.length - 16) : msg.key.remoteJid.slice(0, msg.key.remoteJid.length - 16);
+  let id: string = msg.key.remoteJid.endsWith("@g.us") ? msg.key.participant.slice(0, msg.key.participant.length - 16) : msg.key.remoteJid.slice(0, msg.key.remoteJid.length - 16);
   setTimeout(() => {
     sock.sendMessage(msg.key.remoteJid, { text: `@${id} *${reminderText}*` });
   }, ms)

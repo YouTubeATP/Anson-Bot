@@ -2,7 +2,7 @@
 
 export * as dick from "./commands/dick";
 export * as eightball from "./commands/eightball";
-export * as cat from "./commands/cats";
+export * as cat from "./commands/cat";
 export * as stationinfo from "./commands/mr/stationInfo";
 export * as stationlist from "./commands/mr/stationList";
 export * as random from "./commands/random";

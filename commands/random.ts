@@ -4,7 +4,7 @@ function choice(array) {
 
 export async function execute(sock, msg, messageText, args) {
   let questionqr: string;
-  let argy = messageText.slice(9).split(":");  
+  let argy: Array<string> = messageText.slice(9).split(":");  
   if (argy[0].startsWith("q!")) {
     questionqr = argy.shift().slice(2);
   } else {

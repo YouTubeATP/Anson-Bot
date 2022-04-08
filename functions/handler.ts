@@ -16,13 +16,13 @@ export async function handler(sock, message) {
   // };
 
   
-  let bans: Array<String> = JSON.parse(fs.readFileSync("./assets/bans.json", (err) => {
+  let bans: Array<string> = JSON.parse(fs.readFileSync("./assets/bans.json", (err) => {
     if (err) {
       throw err;
     }
   }));
 
-  let sender = message.key.participant ? message.key.participant : message.key.remoteJid;
+  let sender: string = message.key.participant ? message.key.participant : message.key.remoteJid;
 
   if (bans.includes(sender)) {
     console.info("Blocked user " + sender + "'s attempt using the bot.")
@@ -34,15 +34,15 @@ export async function handler(sock, message) {
   };
 
   try {
-    var messageText = message.message.conversation ? message.message.conversation : message.message.extendedTextMessage.text;
+    var messageText: string = message.message.conversation ? message.message.conversation : message.message.extendedTextMessage.text;
   } catch (TypeError) {
     return;
   }
-  var args = messageText.slice(config.commandPrefix.length).trim().split(/ +/);
+  var args: Array<string> = messageText.slice(config.commandPrefix.length).trim().split(/ +/);
   
-  function joinArgs(args) {
+  function joinArgs(args): Array<string> {
     let inQuote = false;
-    let newArgs = [];
+    let newArgs: Array<string> = [];
     for (let i = 0; i < args.length; i++) {
       if (args[i].startsWith("\"")) {
         inQuote = true;

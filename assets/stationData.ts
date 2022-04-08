@@ -1,4 +1,4 @@
-const stationData = {
+const stationData: object = {
     "LAR": {
         "cname": "湖河",
         "ename": "Lake River",

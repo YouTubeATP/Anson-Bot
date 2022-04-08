@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.5 (2022-04-09)
+**Added:**
+- Type annotations for most variables
+- Read receipt (blue double tick) sending
+
 ## 1.0.4 (2022-03-27)
 **Added:**
 - Non-command handler

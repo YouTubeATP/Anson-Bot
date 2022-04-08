@@ -129,10 +129,10 @@ const startSock = async() => {
         const msg = m.messages[0]
         
         if(!msg.key.fromMe && m.type === 'notify') {
+            await sock.sendReadReceipt(msg.key.remoteJid, msg.key.participant, [msg.key.id])
             // My custom command handler, at ./functions/handler.ts
             await handler(sock, msg)
         }
-        
     })
 
     sock.ev.on('messages.update', m => console.log(m))

@@ -1,5 +1,5 @@
 export async function execute(sock, msg, messageText, args) {
-  function choice(array) {
+  function choice(array): any {
     return array[Math.floor(Math.random() * array.length)];
   }
 
@@ -25,8 +25,8 @@ export async function execute(sock, msg, messageText, args) {
     "Outlook not so good.",
     "Very doubtful."
   ];
-  let answer = choice(answers);
-  let question = messageText.slice(12);
+  let answer: string = choice(answers);
+  let question: string = messageText.slice(12);
   await sock.sendMessage(msg.key.remoteJid, {
     text: `*_Magic 8 Ball_*\n\n*Question*\n${question}\n\n*Answer*\n${answer}`,
   });

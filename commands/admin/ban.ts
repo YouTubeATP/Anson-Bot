@@ -14,10 +14,9 @@ function remove(arr, value) {
 }
 
 export async function execute(sock, msg, messageText, args) {
-  let sender = msg.key.participant ? msg.key.participant : msg.key.remoteJid;
+  let sender: string = msg.key.participant ? msg.key.participant : msg.key.remoteJid;
   
-  let owners: Array<String> = JSON.parse(process.env.OWNER);
-  console.log(JSON.stringify(owners));
+  let owners: Array<string> = JSON.parse(process.env.OWNER);
 
   if (!owners.includes(sender)) {
     await sock.sendMessage(msg.key.remoteJid, { text: "Sorry, but you do not have permission to execute this command." });
@@ -32,9 +31,9 @@ export async function execute(sock, msg, messageText, args) {
     return;
   }
 
-  let user = args[0];
+  let user: string = args[0];
 
-  let bans = JSON.parse(fs.readFileSync("./assets/bans.json", (err) => {
+  let bans: Array<string> = JSON.parse(fs.readFileSync("./assets/bans.json", (err) => {
     if (err) {
       throw err;
     }
@@ -42,7 +41,6 @@ export async function execute(sock, msg, messageText, args) {
 
   let userId = args[0] + "@s.whatsapp.net";
 
-  console.log(bans);
   if (!bans.includes(userId)) {
     bans.push(userId);
     fs.writeFileSync("./assets/bans.json", JSON.stringify(bans));

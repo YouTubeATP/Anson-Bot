@@ -52,9 +52,9 @@ function calcPP(beatmap, mod, acc, combos, miss) {
   let parser = new ojsama.parser();
   let map;
   let mods;
-  let acc_percent;
-  let combo;
-  let nmiss;
+  let acc_percent: number;
+  let combo: number;
+  let nmiss: number;
   let stars;
 
   axios.get(`http://osu.ppy.sh/osu/${beatmap}`)
@@ -87,8 +87,8 @@ function calcPP(beatmap, mod, acc, combos, miss) {
 }
 
 // According to OSU API's enabled_mods bitmask, converts a given number sum to a list of enabled mods.
-function sumToModList(sum) {
-  let modList = [];
+function sumToModList(sum): Array<string> {
+  let modList: Array<string> = [];
 
   // Bitmask magic
   if (sum & 1 << 0) {
@@ -168,21 +168,21 @@ function sumToModList(sum) {
   return modList;
 }
 
-function numberWithCommas(x) {
+function numberWithCommas(x): string {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 export async function execute(sock, msg, messageText, args) {
-  let osuNames = JSON.parse(fs.readFileSync("./assets/" + "osuNames.json", (err) => {
+  let osuNames: object = JSON.parse(fs.readFileSync("./assets/" + "osuNames.json", (err) => {
     if (err) {
       throw err;
     }
   }));
 
   let modeRegex = /^[0-3]|standard|taiko|catch|mania+$/i;
-  let modeArg;
-  let user;
-  var id = msg.key.participant ? msg.key.participant : msg.key.remoteJid;
+  let modeArg: string;
+  let user: string;
+  var id: string = msg.key.participant ? msg.key.participant : msg.key.remoteJid;
 
   if (args[0]) {
     if (modeRegex.test(args[0])) {
@@ -209,27 +209,28 @@ export async function execute(sock, msg, messageText, args) {
     return;
   }
 
+  let mode: number;
   switch (modeArg) {
     case "standard":
-      var mode = 0;
+      mode = 0;
       break;
     case "taiko":
-      var mode = 1;
+      mode = 1;
       break;
     case "catch":
-      var mode = 2;
+      mode = 2;
       break;
     case "mania":
-      var mode = 3;
+      mode = 3;
       break;
     case "0":
     case "1":
     case "2":
     case "3":
-      var mode = Number(modeArg);
+      mode = Number(modeArg);
       break;
     default:
-      var mode = 0;
+      mode = 0;
   }
 
   var rs;
@@ -242,22 +243,24 @@ export async function execute(sock, msg, messageText, args) {
       return;
     }
 
+    let modeName: string;
+    let type: string;
     switch (mode) {
       case 0:
-        var modeName = "Standard";
-        var type = "osu";
+        modeName = "Standard";
+        type = "osu";
         break;
       case 1:
-        var modeName = "Taiko";
-        var type = "taiko";
+        modeName = "Taiko";
+        type = "taiko";
         break;
       case 2:
-        var modeName = "Catch the Beat!";
-        var type = "fruits";
+        modeName = "Catch the Beat!";
+        type = "fruits";
         break;
       case 3:
-        var modeName = "Mania";
-        var type = "mania";
+        modeName = "Mania";
+        type = "mania";
         break;
     }
     let m = `_*Recent osu! ${modeName} play for ${user}:*_\n\n*${rs.beatmap.title} [${rs.beatmap.version}]*`;
@@ -271,7 +274,7 @@ export async function execute(sock, msg, messageText, args) {
     }
     m += ` *[${rs.beatmap.difficulty.rating.toFixed(2)}★]*`;
 
-    let rank;
+    let rank: string;
     switch (rs.rank) {
       case "XH":
         rank = "SS (Hidden)";
@@ -290,9 +293,9 @@ export async function execute(sock, msg, messageText, args) {
       let parser = new ojsama.parser();
       let map;
       let mod;
-      let acc_percent;
-      let combo;
-      let nmiss;
+      let acc_percent: number;
+      let combo: number;
+      let nmiss: number;
       let stars;
       let pp;
       let fcpp;
@@ -310,7 +313,6 @@ export async function execute(sock, msg, messageText, args) {
         nmiss = parseInt(`${rs.counts.miss}m`);
 
         stars = new ojsama.diff().calc({map: map, mods: mod});
-        console.log(stars.toString());
 
         pp = ojsama.ppv2({
           stars: stars,
@@ -323,8 +325,6 @@ export async function execute(sock, msg, messageText, args) {
           map: map
         });
 
-        console.log(pp);
-        console.log(fcpp);        
         m += `\n▸ _${rank}_ ▸ _${pp.total.toFixed(2)}/${fcpp.total.toFixed(2)}PP_ ▸ _${(rs.accuracy * 100).toFixed(2)}%_`;
         m += `\n▸ _${numberWithCommas(rs.score)}_ ▸ _x${rs.maxCombo}/${rs.beatmap.maxCombo}_ ▸ _[${rs.counts["300"]}/${rs.counts["100"]}/${rs.counts["50"]}/${rs.counts.miss}]_`;
         console.log(m);

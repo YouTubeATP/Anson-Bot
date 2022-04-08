@@ -1,3 +1,5 @@
+import { stringList } from "aws-sdk/clients/datapipeline";
+
 require("dotenv").config();
 const node_osu = require('node-osu');
 const osu = new node_osu.Api(process.env.OSU_API_KEY, {
@@ -8,21 +10,21 @@ const osu = new node_osu.Api(process.env.OSU_API_KEY, {
 const fs = require("fs");
 const axios = require('axios');
 
-function numberWithCommas(x) {
+function numberWithCommas(x): string {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 export async function execute(sock, msg, messageText, args) {
-  let osuNames = JSON.parse(fs.readFileSync("./assets/" + "osuNames.json", (err) => {
+  let osuNames: object = JSON.parse(fs.readFileSync("./assets/" + "osuNames.json", (err) => {
     if (err) {
       throw err;
     }
   }));
 
-  var id = msg.key.participant ? msg.key.participant : msg.key.remoteJid;
-  let user;
+  var id: string = msg.key.participant ? msg.key.participant : msg.key.remoteJid;
+  let user: string;
   const modeRegex = /^[0-3]|standard|taiko|catch|mania+$/i;
-  let modeArg;
+  let modeArg: string;
 
   if (args[0]) {
     if (modeRegex.test(args[0])) {
@@ -49,41 +51,43 @@ export async function execute(sock, msg, messageText, args) {
     return;
   }
 
+  let mode: number;
   switch (modeArg) {
     case "standard":
-      var mode = 0;
+      mode = 0;
       break;
     case "taiko":
-      var mode = 1;
+      mode = 1;
       break;
     case "catch":
-      var mode = 2;
+      mode = 2;
       break;
     case "mania":
-      var mode = 3;
+      mode = 3;
       break;
     case "0":
     case "1":
     case "2":
     case "3":
-      var mode = Number(modeArg);
+      mode = Number(modeArg);
       break;
     default:
-      var mode = 0;
+      mode = 0;
   }
 
+  let modeName: string;
   switch (mode) {
     case 0:
-      var modeName = "Standard";
+      modeName = "Standard";
       break;
     case 1:
-      var modeName = "Taiko";
+      modeName = "Taiko";
       break;
     case 2:
-      var modeName = "Catch the Beat!";
+      modeName = "Catch the Beat!";
       break;
     case 3:
-      var modeName = "Mania";
+      modeName = "Mania";
       break;
   }
 

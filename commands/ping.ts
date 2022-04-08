@@ -1,5 +1,5 @@
 export async function execute(sock, msg, messageText, args) {
-  function choice(array) {
+  function choice(array): any {
     return array[Math.floor(Math.random() * array.length)];
   }
 
