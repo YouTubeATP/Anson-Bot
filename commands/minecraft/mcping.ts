@@ -1,5 +1,9 @@
 const mc = require("minecraft-server-status-simple");
 
+function numberWithCommas(x): string {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 export async function execute(sock, msg, messageText, args) {
   let ip: string = args[0];
   let type: string = args[1];
@@ -30,12 +34,12 @@ export async function execute(sock, msg, messageText, args) {
   mc.status(type, ip, port)
     .then((res) => {
       let m = "";
-      let a = res.online ? "_🟢 This server is online!_" : "_🔴 This server is offline!_";
+      let a = res.online ? "*🟢 This server is online!*" : "*🔴 This server is offline!*";
       m += `_*Ping result of ${res.hostname} [${res.ip}:${res.port}]:*_`;
       m += "\n" + a;
       if (res.online) {
-        m += `\n\n*${res.motd.clean}*`;
-        m += `\n${res.players.online}/${res.players.max} players online`;
+        m += `\n\n_${res.motd.clean.trim()}_`;
+        m += `\n\n${numberWithCommas(res.players.online)}/${numberWithCommas(res.players.max)} players online`;
       }
       sock.sendMessage(msg.key.remoteJid, { text: m });
     })
