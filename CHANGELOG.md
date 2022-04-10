@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.0.1 (2022-04-11)
+**Fixed:**
+- mcping command not displaying MOTD properly
 ## 2.0.0 (2022-04-11)
 **Added:**
 - Dog command

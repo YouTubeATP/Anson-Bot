@@ -29,12 +29,12 @@ export async function execute(sock, msg, messageText, args) {
   }
   mc.status(type, ip, port)
     .then((res) => {
-      let m: string;
+      let m = "";
       let a = res.online ? "_🟢 This server is online!_" : "_🔴 This server is offline!_";
       m += `_*Ping result of ${res.hostname} [${res.ip}:${res.port}]:*_`;
       m += "\n" + a;
       if (res.online) {
-        m += `\n\n*${res.motd}*`;
+        m += `\n\n*${res.motd.clean}*`;
         m += `\n${res.players.online}/${res.players.max} players online`;
       }
       sock.sendMessage(msg.key.remoteJid, { text: m });
