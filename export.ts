@@ -3,6 +3,7 @@
 export * as dick from "./commands/dick";
 export * as eightball from "./commands/eightball";
 export * as cat from "./commands/cat";
+export * as dog from "./commands/dog";
 export * as stationinfo from "./commands/mr/stationInfo";
 export * as stationlist from "./commands/mr/stationList";
 export * as random from "./commands/random";
@@ -13,3 +14,4 @@ export * as ping from "./commands/ping";
 export * as help from "./commands/help";
 export * as osuprofile from "./commands/osu/osuProfile";
 export * as ban from "./commands/admin/ban";
+export * as mcping from "./commands/minecraft/mcping";

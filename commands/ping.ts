@@ -5,7 +5,11 @@ export async function execute(sock, msg, messageText, args) {
 
   const responses = [
     "ポン！",
+    "ぽん！",
     "Pong!",
+    "I am Anson-Bot, and I am working.",
+    "Yes, sir. I am willing to serve!",
+    "Maybe go study instead of pinging me?",
     "Yes, the bot is working. You don't need to test it.\n\nPong. You happy now?",
     "Did you know you're flooding my traffic by pinging me?\n\nPong.",
     "At your service, master. Pong.",

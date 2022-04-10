@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.0.0 (2022-04-11)
+**Added:**
+- Dog command
+- mcping command
+
+**Updated:**
+- Help command
+- Ping command
+
 ## 1.0.5 (2022-04-09)
 **Added:**
 - Type annotations for most variables
