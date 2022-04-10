@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.3 (2022-04-11)
+**Fixed:**
+- Error of mcping command
+
 ## 2.0.2 (2022-04-11)
 **Updated:**
 - Format of mcping command response

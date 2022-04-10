@@ -36,9 +36,11 @@ export async function execute(sock, msg, messageText, args) {
       let m = "";
       let a = res.online ? "*🟢 This server is online!*" : "*🔴 This server is offline!*";
       m += `_*Ping result of ${res.hostname} [${res.ip}:${res.port}]:*_`;
-      m += "\n" + a;
+      m += "\n" + a + "\n";
       if (res.online) {
-        m += `\n\n_${res.motd.clean.trim()}_`;
+        res.motd.clean.forEach((line) => {
+          m += "\n" + "_" + line.trim() + "_";
+        });
         m += `\n\n${numberWithCommas(Number(res.players.online))}/${numberWithCommas(Number(res.players.max))} players online`;
       }
       sock.sendMessage(msg.key.remoteJid, { text: m });
