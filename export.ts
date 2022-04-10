@@ -15,3 +15,4 @@ export * as help from "./commands/help";
 export * as osuprofile from "./commands/osu/osuProfile";
 export * as ban from "./commands/admin/ban";
 export * as mcping from "./commands/minecraft/mcping";
+export * as source from "./commands/source";

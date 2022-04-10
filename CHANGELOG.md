@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.0.4 (2022-04-11)
+**Added:**
+- source command
+
+**Updated:**
+- `export.ts`
+- help command
+
 ## 2.0.3 (2022-04-11)
 **Fixed:**
 - Error of mcping command
