@@ -39,12 +39,12 @@ export async function execute(sock, msg, messageText, args) {
       m += "\n" + a;
       if (res.online) {
         m += `\n\n_${res.motd.clean.trim()}_`;
-        m += `\n\n${numberWithCommas(res.players.online)}/${numberWithCommas(res.players.max)} players online`;
+        m += `\n\n${numberWithCommas(Number(res.players.online))}/${numberWithCommas(Number(res.players.max))} players online`;
       }
       sock.sendMessage(msg.key.remoteJid, { text: m });
     })
     .catch((err) => {
-      sock.sendMessage(msg.key.remoteJid, { text: `An error occurred` });
+      sock.sendMessage(msg.key.remoteJid, { text: `An error occurred.` });
       console.error(err);
     });
 }
