@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.0.5 (2022-04-16)
+**Added:**
+- Update to latest Baileys version, change sendReadReceipt to readMessages
+
+**Updated:**
+- `README.md`
+
+**Fixed:**
+- Unexpected line break in the mcping command
 ## 2.0.4 (2022-04-11)
 **Added:**
 - source command

@@ -34,9 +34,9 @@ export async function execute(sock, msg, messageText, args) {
   mc.status(type, ip, port)
     .then((res) => {
       let m = "";
-      let a = res.online ? "*🟢 This server is online!*" : "*🔴 This server is offline!*";
+      let a = res.online ? "*🟢 This server is online!*\n" : "*🔴 This server is offline!*";
       m += `_*Ping result of ${res.hostname} [${res.ip}:${res.port}]:*_`;
-      m += "\n" + a + "\n";
+      m += "\n" + a;
       if (res.online) {
         res.motd.clean.forEach((line) => {
           m += "\n" + "_" + line.trim() + "_";
