@@ -19,12 +19,12 @@ export async function broadcastMessage(sock, group) {
 - Tissue
 - Hand sanitizer
 - Radio (CHIN III and ENG III)
-- Earphones (not headphones) with a 3.5mm jack
-- Spare batteries
+- Earphones (not headphones) with a 3.5mm jack (CHIN III and ENG III)
+- Spare batteries (CHIN III and ENG III)
 
 *Tips*
 - Stay calm and stay safe!
-- Don't revise at the last minute unless you really forgot something
+- Don't revise at the last minute unless you really forget something!
 - Use \`\`\`a!cat\`\`\` for the power of the cat!
 - Use \`\`\`a!eightball\`\`\` to test your luck! (If you're feeling lucky)
 
