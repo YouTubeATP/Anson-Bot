@@ -4,6 +4,7 @@ import { Boom } from '@hapi/boom'
 import P from 'pino'
 import makeWASocket, { AnyMessageContent, delay, DisconnectReason, fetchLatestBaileysVersion, makeInMemoryStore, useSingleFileAuthState } from '@adiwajshing/baileys'
 import { handler } from './functions/handler'
+import { broadcastMessage } from './functions/broadcaster'
 
 // the store maintains the data of the WA connection in memory
 // can be written out to a file & read from it
@@ -18,7 +19,11 @@ const { state, saveState } = useSingleFileAuthState('./assets/auth_info_multi.js
 
 const fs = require("fs");
 const AWS = require("aws-sdk");
+const date = new Date(new Date().getTime() + 8 * 3600 * 1000);
 require("dotenv").config();
+
+const group = process.env.GROUP;
+var broadcasted = [];
 
 const s3 = new AWS.S3({
     maxRetries: 3,
@@ -120,7 +125,9 @@ const startSock = async() => {
     }
     
     sock.ev.on('chats.set', item => console.log(`recv ${item.chats.length} chats (is latest: ${item.isLatest})`))
-    sock.ev.on('messages.set', item => console.log(`recv ${item.messages.length} messages (is latest: ${item.isLatest})`))
+    sock.ev.on('messages.set', item => {
+        console.log(`recv ${item.messages.length} messages (is latest: ${item.isLatest})`)
+    })
     sock.ev.on('contacts.set', item => console.log(`recv ${item.contacts.length} contacts`))
 
     sock.ev.on('messages.upsert', async m => {
@@ -138,6 +145,13 @@ const startSock = async() => {
             
             // My custom command handler, at ./functions/handler.ts
             await handler(sock, msg)
+
+            var dseDays = [22, 23, 25, 26, 27, 28, 29, 30, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+            
+            if (!broadcasted.includes(date.getUTCDate()) && date.getUTCHours() >= 1 && (date.getUTCMonth() === 3 || date.getUTCMonth() === 4) && dseDays.includes(date.getUTCDate())) {
+                await broadcastMessage(sock, group)
+                broadcasted.push(date.getUTCDate())
+            }
         }
     })
 

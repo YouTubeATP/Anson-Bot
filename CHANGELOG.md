@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.0 (2022-04-22)
+**Added:**
+- Broadcaster function
+
 ## 2.0.5 (2022-04-16)
 **Added:**
 - Update to latest Baileys version, change sendReadReceipt to readMessages
