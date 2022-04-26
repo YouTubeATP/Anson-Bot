@@ -24,6 +24,7 @@ require("dotenv").config();
 
 const group = process.env.GROUP;
 var broadcasted = [];
+var broadcasterInitialized = false;
 
 const s3 = new AWS.S3({
     maxRetries: 3,
@@ -148,9 +149,15 @@ const startSock = async() => {
 
             var dseDays = [22, 23, 25, 26, 27, 28, 29, 30, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
             
-            if (!broadcasted.includes(date.getUTCDate()) && date.getUTCHours() >= 7 && (date.getUTCMonth() === 3 || date.getUTCMonth() === 4) && dseDays.includes(date.getUTCDate())) {
-                await broadcastMessage(sock, group)
-                broadcasted.push(date.getUTCDate())
+            if (!broadcasterInitialized) {
+                broadcasterInitialized = true;
+                
+                while (true) {
+                    if (!broadcasted.includes(date.getUTCDate()) && date.getUTCHours() >= 7 && (date.getUTCMonth() === 3 || date.getUTCMonth() === 4) && dseDays.includes(date.getUTCDate())) {
+                        await broadcastMessage(sock, group)
+                        broadcasted.push(date.getUTCDate())
+                    }
+                }
             }
         }
     })
