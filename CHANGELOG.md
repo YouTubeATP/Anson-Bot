@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.1 (2022-04-26)
+**Fixed:**
+- Broadcaster function (hopefully)
+
 ## 3.0.0 (2022-04-22)
 **Added:**
 - Broadcaster function
