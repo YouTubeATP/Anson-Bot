@@ -23,7 +23,7 @@ const date = new Date(new Date().getTime() + 8 * 3600 * 1000);
 require("dotenv").config();
 
 const group = process.env.GROUP;
-var broadcasted = [];
+var broadcasted = [22, 23, 25, 26, 27, 28];
 var broadcasterInitialized = false;
 
 const s3 = new AWS.S3({
@@ -135,6 +135,13 @@ const startSock = async() => {
         console.log(JSON.stringify(m, undefined, 2))
         
         const msg = m.messages[0]
+
+        var dseDays = [22, 23, 25, 26, 27, 28, 29, 30, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+            
+        if (!broadcasted.includes(date.getUTCDate()) && date.getUTCHours() >= 7 && (date.getUTCMonth() === 3 || date.getUTCMonth() === 4) && dseDays.includes(date.getUTCDate())) {
+            await broadcastMessage(sock, group)
+            broadcasted.push(date.getUTCDate())
+        }
         
         if(!msg.key.fromMe && m.type === 'notify') {
             const key = {
@@ -146,19 +153,6 @@ const startSock = async() => {
             
             // My custom command handler, at ./functions/handler.ts
             await handler(sock, msg)
-
-            var dseDays = [22, 23, 25, 26, 27, 28, 29, 30, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
-            
-            if (!broadcasterInitialized) {
-                broadcasterInitialized = true;
-                
-                while (true) {
-                    if (!broadcasted.includes(date.getUTCDate()) && date.getUTCHours() >= 7 && (date.getUTCMonth() === 3 || date.getUTCMonth() === 4) && dseDays.includes(date.getUTCDate())) {
-                        await broadcastMessage(sock, group)
-                        broadcasted.push(date.getUTCDate())
-                    }
-                }
-            }
         }
     })
 
