@@ -9,7 +9,7 @@ export async function execute(sock, msg, messageText, args) {
         await sock.sendMessage(msg.key.remoteJid, { text: "*Fun commands*\n\n```a!cat``` - Sends you a lovely cat.\n\n```a!dog``` - Gives you a dog.\n\n```a!dick``` - How long is it?\n\n```a!eightball <question>``` - The classic Magic 8 Ball.\n\n```a!random [q!question]:<item1>:<item2>:<item3>``` - Chooses a random item.\nUsage examples:\n```a!random q!Which language is the best:English:Chinese:Hindi:Japanese```\n```a!random Cats:Dogs:Rabbits```\n\n[] Optional <> Required" });
         break;
       case "util":
-        await sock.sendMessage(msg.key.remoteJid, { text: "*Utility commands*\n\n```a!remindme <time> [reminder]``` - Sends you a reminder.\nUsage Examples:\n```a!remindme -d:2 -h:1 -m:30 -s:15 \"2 days, 1 hour, 30 minutes, and 15 seconds\"```\n```a!remindme -m:10```\n\n[] Optional <> Required" });
+        await sock.sendMessage(msg.key.remoteJid, { text: "*Utility commands*\n\n```a!remindme <time> [reminder]``` - Sends you a reminder.\nUsage Examples:\n```a!remindme -d:2 -h:1 -m:30 -s:15 \"2 days, 1 hour, 30 minutes, and 15 seconds\"```\n```a!remindme -m:10```\n\n```a!react <emoji>``` - Makes the bot react to a message with a certain emoji (reply to the message to react to).\nUsage Examples:\n```a!react 👍```\n\n[] Optional <> Required" });
         break;
       case "mc":
         await sock.sendMessage(msg.key.remoteJid, { text: "*Minecraft commands*\n\n```a!mcping <ip> <type> [port]``` - Pings a Minecraft Server.\nUsage Examples:\n```a!mcping play.aurummcnet.ga java 25565```\n\n[] Optional <> Required" });

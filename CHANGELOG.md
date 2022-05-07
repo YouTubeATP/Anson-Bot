@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.0.0 (2022-05-08)
+**Added:**
+- `react` command
+
 ## 3.0.3 (2022-05-07)
 **Fixed:**
 - Commented broadcaster
