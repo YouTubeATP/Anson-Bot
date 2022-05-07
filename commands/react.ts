@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 export async function execute(sock, msg, messageText, args) {
     const emojisExist = /\p{Extended_Pictographic}/ug;
 
@@ -14,7 +16,12 @@ export async function execute(sock, msg, messageText, args) {
     var reactionMessage = {
         react: {
             text: args[0],
-            key: msg.message.extendedTextMessage.contextInfo.stanzaId
+            key: {
+                id: msg.message.extendedTextMessage.contextInfo.stanzaId,
+                remoteJid: msg.key.remoteJid,
+                participant: msg.message.extendedTextMessage.contextInfo.participant,
+                fromMe: msg.message.extendedTextMessage.contextInfo.participant.includes(process.env.BOT_PHONE)
+            }
         }
     }
 
