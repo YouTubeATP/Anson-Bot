@@ -22,6 +22,7 @@ export async function execute(sock, msg, messageText, args) {
         await sock.sendMessage(msg.key.remoteJid, reactionMessage);
     } catch (e) {
         await sock.sendMessage(msg.key.remoteJid, { text: "An error occurred." });
+        console.error(e);
         return;
     }
 }
