@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.0.1 (2022-05-08)
+**Updated:**
+- `package.json`
+
 ## 4.0.0 (2022-05-08)
 **Added:**
 - `react` command

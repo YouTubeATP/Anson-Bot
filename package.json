@@ -6,6 +6,7 @@
     "cats-js": "^1.0.2",
     "doggo-api-wrapper": "^1.0.1",
     "dotenv": "^16.0.0",
+    "link-preview-js": "^2.1.13",
     "minecraft-server-status-simple": "^1.1.1",
     "moment": "^2.29.1",
     "node-osu": "^2.2.1",
