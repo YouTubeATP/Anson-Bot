@@ -11,11 +11,6 @@ export async function execute(sock, msg, messageText, args) {
         return;
     }
 
-    if (args[0].length != 1) {
-        await sock.sendMessage(msg.key.remoteJid, { text: "You must specify only one *emoji* to react!" });
-        return;
-    }
-
     var reactionMessage = {
         react: {
             text: args[0],
@@ -23,5 +18,10 @@ export async function execute(sock, msg, messageText, args) {
         }
     }
 
-    await sock.sendMessage(msg.key.remoteJid, reactionMessage);
+    try {
+        await sock.sendMessage(msg.key.remoteJid, reactionMessage);
+    } catch (e) {
+        await sock.sendMessage(msg.key.remoteJid, { text: "An error occurred." });
+        return;
+    }
 }
