@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.3 (2022-05-07)
+**Fixed:**
+- Commented broadcaster
+
 ## 3.0.2 (2022-04-28)
 **Fixed:**
 - Broadcaster function (hopefully)
