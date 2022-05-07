@@ -1,7 +1,7 @@
 export async function execute(sock, msg, messageText, args) {
     const emojisExist = /\p{Extended_Pictographic}/ug;
 
-    if (!msg.message.extendedTextMessage.contextInfo) {
+    if (!msg.message?.extendedTextMessage?.contextInfo) {
         await sock.sendMessage(msg.key.remoteJid, { text: "Reply this command to the message you want me to react to!" });
         return;
     }
