@@ -32,7 +32,7 @@ export async function execute(sock, msg, messageText, args) {
     reminderText = "Your reminder is here!";
   }
 
-  let id: string = msg.key.remoteJid.endsWith("@g.us") ? msg.key.participant.slice(0, msg.key.participant.length - 16) : msg.key.remoteJid.slice(0, msg.key.remoteJid.length - 16);
+  let id: string = msg.key.remoteJid.endsWith("@g.us") ? msg.key.participant.slice(0, msg.key.participant.length - 15) : msg.key.remoteJid.slice(0, msg.key.remoteJid.length - 15);
   setTimeout(() => {
     sock.sendMessage(msg.key.remoteJid, { text: `@${id} *${reminderText}*` });
   }, ms)

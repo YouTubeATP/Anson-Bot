@@ -1,16 +1,22 @@
 {
   "dependencies": {
-    "@adiwajshing/baileys": "^4.1.0",
+    "@adiwajshing/baileys": "^5.0.0",
+    "@adiwajshing/keyed-db": "^0.2.4",
     "@nlpjs/basic": "^4.23.3",
     "aws-sdk": "^2.1100.0",
+    "bindings": "^1.5.0",
     "cats-js": "^1.0.2",
     "doggo-api-wrapper": "^1.0.1",
     "dotenv": "^16.0.0",
     "link-preview-js": "^2.1.13",
     "minecraft-server-status-simple": "^1.1.1",
     "moment": "^2.29.1",
+    "node-expat": "^2.4.0",
+    "node-gyp": "^9.3.1",
     "node-osu": "^2.2.1",
     "ojsama": "^2.2.0",
+    "qrcode-terminal": "^0.12.0",
+    "tsc": "^2.0.4",
     "typescript": "^4.6.3"
   },
   "scripts": {

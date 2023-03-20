@@ -1,6 +1,6 @@
 export async function execute(sock, msg, messageText, args) {
   if (args.length < 1) {
-    await sock.sendMessage(msg.key.remoteJid, { text: "*Use* ```a!help <category>``` *to get help for it.*\n\n_fun_ - Fun\n_util_ - Utilities\n_mc_ - Minecraft\n_mr_ - MR\n_osu_ - osu!\n_misc_ - Miscellaneous" });    
+    await sock.sendMessage(msg.key.remoteJid, { text: "*Use* ```a!help <category>``` *to get help for it.*\n\n_chatgpt_ - ChatGPT\n_fun_ - Fun\n_util_ - Utilities\n_mc_ - Minecraft\n_mr_ - MR\n_osu_ - osu!\n_misc_ - Miscellaneous" });    
     return;
   }
   else {
@@ -22,6 +22,9 @@ export async function execute(sock, msg, messageText, args) {
         break;
       case "misc":
         await sock.sendMessage(msg.key.remoteJid, { text: "*Miscellaneous commands*\n\n```a!help [category]``` - Sends you a list of commands.\n\n```a!ban <area code><phone number>``` - _(Admins only)_ Bans a user from interacting with the bot.\n\n```a!ping``` - Sends you a ping.\n\n```a!source``` - Sends you the bot's source code.\n\n[] Optional <> Required" });
+        break;
+      case "chatgpt":
+        await sock.sendMessage(msg.key.remoteJid, { text: "*ChatGPT commands*\n\n```a!chatgpt <prompt>``` - Asks ChatGPT a question. Context of up to the previous 5 pairs of conversation is kept.\n\n```a!gptclear``` - Clears the stored context for ChatGPT.\n\n[] Optional <> Required" });
         break;
     }
   }

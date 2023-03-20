@@ -17,3 +17,5 @@ export * as ban from "./commands/admin/ban";
 export * as mcping from "./commands/minecraft/mcping";
 export * as source from "./commands/source";
 export * as react from "./commands/react";
+export * as chatgpt from "./commands/chatgpt/gpt";
+export * as gptclear from "./commands/chatgpt/clearContext";
